@@ -24,14 +24,14 @@ controller.getProfesional = async (req, res) => {
 controller.createProfesional = async (req, res) => {
   //   let { personalInfo: { fullname, birthdate, dni, gender, country, state, address, hobbies },
   // contactInfo: { phone, email, socialMedia },
-  // academicInfo: { education, licenses, certifications },
+  // academicInfo: { education, certifications },
   // professionalInfo: { summary, workExp, skills, languages } } = req.body;
 
   let { personalInfo, contactInfo, academicInfo, professionalInfo } = req.body;
   let { fullname, birthdate, dni, gender, country, state, address, hobbies } =
     personalInfo;
   let { phone, email, socialMedia } = contactInfo;
-  let { education, licenses, certifications } = academicInfo;
+  let { education, certifications } = academicInfo;
   let { summary, workExp, skills, languages } = professionalInfo;
 
   // const salt = bcryptjs.genSaltSync();
