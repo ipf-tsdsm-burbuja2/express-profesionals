@@ -1,10 +1,11 @@
 const { body } = require("express-validator");
 const {
-  showErrors,
   verifyEmailExistence,
   verifyPasswordInUser,
   verifyInRoles,
 } = require("./user.middlewares");
+
+const { showErrors } = require('./show_errors.middlewares');
 
 // Middlewares que se importaran en las rutas de usuario
 
@@ -21,15 +22,6 @@ const form_post_middlewares = [
   verifyInRoles,
   showErrors,
   verifyEmailExistence,
-];
-
-// Lista de middlewares para el post del profesional
-const post_middlewares_professional = [
-  body("fullname", "El nombre no debe contener números o signos")
-      .isAlpha('es-ES', {ignore: ' '})
-      .length({min:10, max:150}),
-  body("email", "El email ingresado no contiene un formato correcto").isEmail(),
-  // body("birthdate", "La fecha ingresada no es válida").
 ];
 
 // Lista de middlewares para el update del usuario

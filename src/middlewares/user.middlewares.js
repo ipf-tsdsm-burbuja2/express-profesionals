@@ -1,4 +1,3 @@
-const { validationResult } = require("express-validator");
 const bcryptjs = require("bcryptjs");
 
 // model
@@ -8,16 +7,6 @@ const User = require("../models/user.models");
 const { getRoles } = require("../helpers/get_roles");
 
 // functions
-
-// devolver al usuario los erroreres tirados por express-validator
-const showErrors = (req, res, next) => {
-  const errors = validationResult(req);
-  const listerrors = errors.array().map((error) => error.msg);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: listerrors });
-  }
-  next();
-};
 
 const verifyEmailExistence = async (req, res, next) => {
   const { email } = req.body;
@@ -87,7 +76,6 @@ const verifyInRoles = async (req, res, next) => {
 };
 
 module.exports = {
-  showErrors,
   verifyEmailExistence,
   verifyInRoles,
   verifyPasswordInUser,

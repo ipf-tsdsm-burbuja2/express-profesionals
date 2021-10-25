@@ -1,5 +1,7 @@
 const Profesionales = require("../models/professional.models");
 const bcryptjs = require("bcryptjs");
+const { Mongoose } = require("mongoose");
+const { findByIdAndDelete } = require("../models/professional.models");
 const controller = {};
 
 controller.getProfesionales = async (_req, res) => {
@@ -22,26 +24,14 @@ controller.getProfesional = async (req, res) => {
 };
 
 controller.createProfesional = async (req, res) => {
-  //   let { personalInfo: { fullname, birthdate, dni, gender, country, state, address, hobbies },
-  // contactInfo: { phone, email, socialMedia },
-  // academicInfo: { education, certifications },
-  // professionalInfo: { summary, workExp, skills, languages } } = req.body;
 
-  let { personalInfo, contactInfo, academicInfo, professionalInfo } = req.body;
-  let { fullname, birthdate, dni, gender, country, state, address, hobbies } =
-    personalInfo;
-  let { phone, email, socialMedia } = contactInfo;
-  let { education, certifications } = academicInfo;
-  let { summary, workExp, skills, languages } = professionalInfo;
-
-  // const salt = bcryptjs.genSaltSync();
-  // password = bcryptjs.hashSync(password, salt);
+  const { personal_info, contact_info, academic_info, professional_info } = req.body;
 
   const profesionales = new Profesionales({
-    personalInfo,
-    contactInfo,
-    academicInfo,
-    professionalInfo,
+    personal_info,
+    contact_info,
+    academic_info,
+    professional_info
   });
   await profesionales.save();
 
@@ -52,24 +42,29 @@ controller.createProfesional = async (req, res) => {
 
 controller.updateProfesional = async (req, res) => {
   const { id } = req.params;
-  const { email, fullname, active } = req.body;
+  const { personal_info, contact_info, academic_info, professional_info } = req.body;
   const update = {};
 
-  if (Profesionalesname) {
-    update.fullname = fullname;
+  if (personal_info) {
+    update.personal_info = personal_info;
   }
 
-  if (email) {
-    update.email = email;
+  if (contact_info) {
+    update.contact_info = contact_info;
   }
 
-  if (active) {
-    update.active = active;
+  if (academic_info) {
+    update.academic_info = academic_info;
   }
 
-  if (update.fullname || update.email || update.active) {
+  if (professional_info) {
+    update.professional_info = professional_info;
+  }
+
+  if (update.personal_info || update.contact_info || update.academic_info || update.professional_info) {
     try {
-      const profesionales = await Profesionales.findByIdAndUpdate(id, update, {
+      
+      await Profesionales.findByIdAndUpdate(id, update, {
         new: true,
       });
       return res.json({ msg: "Datos de profesional actualizados" });
@@ -87,15 +82,12 @@ controller.deleteProfesional = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const profesionales = await Profesionales.findByIdAndUpdate(
-      id,
-      { active: false },
-      { new: true }
-    );
-
+    await findByIdAndDelete(id);
+    
     res.json({
       msg: "el profesional se elimino del sistema",
     });
+    
   } catch (error) {
     res.status(500).json({ msg: "Error al eliminar profesional" });
   }

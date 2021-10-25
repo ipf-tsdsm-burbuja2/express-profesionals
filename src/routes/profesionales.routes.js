@@ -12,8 +12,11 @@ const {
 } = require("../controllers/profesionales.controllers");
 
 //---------------Rutas---------------------
+// publicas
 route.get("/", getProfesionales);
 route.get("/:id", getProfesional);
+
+// privadas
 route.post("/", createProfesional);
 route.put("/:id", updateProfesional);
 route.put("/password/:id", updateProfesional);
