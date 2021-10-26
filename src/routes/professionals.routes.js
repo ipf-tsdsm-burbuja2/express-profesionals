@@ -1,6 +1,8 @@
 const route = require("express").Router();
 
 //-----------Middlewares-------------------
+const { validar_jwt } = require("../middlewares/validar_jwt.middlewares");
+const { verificarActivo } = require("../middlewares/user.middlewares");
 
 //----------Controladores-----------------
 const {
@@ -9,17 +11,17 @@ const {
   createProfesional,
   updateProfesional,
   deleteProfesional,
-} = require("../controllers/profesionales.controllers");
+} = require("../controllers/professionals.controllers");
 
 //---------------Rutas---------------------
 // publicas
 route.get("/", getProfesionales);
 route.get("/:id", getProfesional);
 
-// privadas
+// privadas // [validar_jwt, verificarActivo],
 route.post("/", createProfesional);
 route.put("/:id", updateProfesional);
-route.put("/password/:id", updateProfesional);
-route.delete("/:id", deleteProfesional);
+// route.put("/password/:id", [validar_jwt, verificarActivo], updateProfesional);
+route.delete("/:id", [validar_jwt, verificarActivo], deleteProfesional);
 
 module.exports = route;

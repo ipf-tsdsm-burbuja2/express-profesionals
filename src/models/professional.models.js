@@ -76,11 +76,11 @@ const Professional = new Schema({
     },
     tertiary: {
       type: String,
-      require: true,
+      // require: true,
     },
     university: {
       type: String,
-      require: true,
+      // require: true,
     },
     //---------Cursos y certificaciones extra------------
     certifications: {
@@ -97,7 +97,7 @@ const Professional = new Schema({
       require: true,
     },
     //-----Descripción de lugar y puesto de trabajo--------
-    workExp: {
+    work_exp: {
       type: String,
       require: true,
     },
@@ -113,7 +113,6 @@ const Professional = new Schema({
       require: true,
     },
   },
-})
-
+});
 
 module.exports = model("Professional", Professional);

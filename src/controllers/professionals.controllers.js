@@ -1,6 +1,4 @@
 const Profesionales = require("../models/professional.models");
-const bcryptjs = require("bcryptjs");
-const { Mongoose } = require("mongoose");
 const { findByIdAndDelete } = require("../models/professional.models");
 const controller = {};
 
@@ -24,14 +22,14 @@ controller.getProfesional = async (req, res) => {
 };
 
 controller.createProfesional = async (req, res) => {
-
-  const { personal_info, contact_info, academic_info, professional_info } = req.body;
+  const { personal_info, contact_info, academic_info, professional_info } =
+    req.body;
 
   const profesionales = new Profesionales({
     personal_info,
     contact_info,
     academic_info,
-    professional_info
+    professional_info,
   });
   await profesionales.save();
 
@@ -42,7 +40,8 @@ controller.createProfesional = async (req, res) => {
 
 controller.updateProfesional = async (req, res) => {
   const { id } = req.params;
-  const { personal_info, contact_info, academic_info, professional_info } = req.body;
+  const { personal_info, contact_info, academic_info, professional_info } =
+    req.body;
   const update = {};
 
   if (personal_info) {
@@ -61,9 +60,14 @@ controller.updateProfesional = async (req, res) => {
     update.professional_info = professional_info;
   }
 
-  if (update.personal_info || update.contact_info || update.academic_info || update.professional_info) {
+  const execute_validation =
+    update.personal_info ||
+    update.contact_info ||
+    update.academic_info ||
+    update.professional_info;
+
+  if (execute_validation) {
     try {
-      
       await Profesionales.findByIdAndUpdate(id, update, {
         new: true,
       });
@@ -83,11 +87,10 @@ controller.deleteProfesional = async (req, res) => {
 
   try {
     await findByIdAndDelete(id);
-    
+
     res.json({
       msg: "el profesional se elimino del sistema",
     });
-    
   } catch (error) {
     res.status(500).json({ msg: "Error al eliminar profesional" });
   }
