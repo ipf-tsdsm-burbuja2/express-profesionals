@@ -1,5 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
+const helmet = require("helmet");
 require("dotenv").config();
 require("./dbconection");
 
@@ -9,6 +11,8 @@ const app = express();
 app.use(morgan("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors());
+app.use(helmet());
 
 // Setttings
 app.set("port", process.env.PORT || 4000);

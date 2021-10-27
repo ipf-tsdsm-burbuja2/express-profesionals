@@ -23,8 +23,8 @@ route.get("/", getProfesionales);
 route.get("/:id", getProfesional);
 
 // privadas // [validar_jwt, verificarActivo],
-route.post("/", [post_middlewares_professional], createProfesional);
-route.put("/:id", updateProfesional);
+route.post("/", post_middlewares_professional, createProfesional);
+route.put("/:id", post_middlewares_professional , updateProfesional);
 // route.put("/password/:id", [validar_jwt, verificarActivo], updateProfesional);
 route.delete("/:id", [validar_jwt, verificarActivo], deleteProfesional);
 
