@@ -25,17 +25,24 @@ controller.createProfesional = async (req, res) => {
   const { personal_info, contact_info, academic_info, professional_info } =
     req.body;
 
-  const profesionales = new Profesionales({
-    personal_info,
-    contact_info,
-    academic_info,
-    professional_info,
-  });
-  await profesionales.save();
+  try {
+    const profesionales = new Profesionales({
+      personal_info,
+      contact_info,
+      academic_info,
+      professional_info,
+    });
+    await profesionales.save();
 
-  res.json({
-    msg: "profesional agregado",
-  });
+    res.json({
+      msg: "profesional agregado",
+    });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({
+      msg: "ocurrio un error al crear registro",
+    });
+  }
 };
 
 controller.updateProfesional = async (req, res) => {

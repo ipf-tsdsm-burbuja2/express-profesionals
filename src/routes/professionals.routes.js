@@ -12,6 +12,9 @@ const {
   updateProfesional,
   deleteProfesional,
 } = require("../controllers/professionals.controllers");
+const {
+  post_middlewares_professional,
+} = require("../middlewares/form_professionals.middlewares");
 
 //---------------Rutas---------------------
 // publicas
@@ -19,7 +22,7 @@ route.get("/", getProfesionales);
 route.get("/:id", getProfesional);
 
 // privadas // [validar_jwt, verificarActivo],
-route.post("/", createProfesional);
+route.post("/", [post_middlewares_professional], createProfesional);
 route.put("/:id", updateProfesional);
 // route.put("/password/:id", [validar_jwt, verificarActivo], updateProfesional);
 route.delete("/:id", [validar_jwt, verificarActivo], deleteProfesional);
