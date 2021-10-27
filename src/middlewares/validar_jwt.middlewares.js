@@ -15,8 +15,10 @@ const validar_jwt = async (req = request, res = response, next) => {
   // Verificar token
   try {
     const { id } = jwt.verify(token, process.env.SECRET);
+    // console.log("entrando")
 
     if (!id) {
+      console.log(id);
       return res.status(401).json({
         msg: "No existe el id",
       });
@@ -36,7 +38,10 @@ const validar_jwt = async (req = request, res = response, next) => {
 
     next();
   } catch (error) {
-    throw error;
+    return res.status(401).json({
+      msg: "Error de token",
+    });
+    // throw error;
   }
 };
 
