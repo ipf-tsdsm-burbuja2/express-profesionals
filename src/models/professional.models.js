@@ -19,16 +19,19 @@ const Professional = new Schema({
       unique: true,
     },
     //--------Género--------
+    // -------Select con opciones--------
     gender: {
       type: String,
       require: true,
     },
     //--------País-----------
+    //-----Select con consumo de api de países--------
     country: {
       type: String,
       require: true,
     },
     //--------Ciudad----------
+    //-----Select con consumo de api de ciudades--------
     state: {
       type: String,
       require: true,

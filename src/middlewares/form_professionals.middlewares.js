@@ -8,11 +8,13 @@ const {
 const post_middlewares_professional = [
   professionalExtractAtributes,
   body("fullname", "El nombre no debe contener números o signos")
-    .isAlpha("es-ES", { ignore: " " })
+    .isAscii("es-ES", { ignore: " " })
     .isLength({ min: 10, max: 150 }),
-  body("email", "El email ingresado no contiene un formato correcto").isEmail(),
-  body("dni", "El formato del dni es incorrecto").isInt(),
-  // body("birthdate", "La fecha ingresada no es válida").
+  // body("dni", "El formato del dni es incorrecto").isNumeric(),
+  // body("address", "En la dirección sólo se permiten letras.").isAscii({ ignore: " "}),
+  // body("email", "El email ingresado no contiene un formato correcto").isEmail(),
+  // body("phone", "No es un móvil válido").isNumeric(),
+
   showErrors,
 ];
 
