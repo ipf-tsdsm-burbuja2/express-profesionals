@@ -19,11 +19,13 @@ const {
 
 // login:
 route.post("/login", loginUser);
+// register
+// route.post("/register", loginUser);
 
 // normal:
 route.get("/:id", getUser);
 route.get("/", getUsers);
-route.post("/", form_post_middlewares, createUser);
+route.post("/register", form_post_middlewares, createUser);
 route.put("/:id", form_update_middlewares, updateUser);
 route.put("/password/:id", form_password_middlewares, updateUser);
 route.delete("/:id", deleteUser);

@@ -14,6 +14,7 @@ const {
 } = require("../controllers/professionals.controllers");
 const {
   post_middlewares_professional,
+  // update_middlewares_professional,
 } = require("../middlewares/form_professionals.middlewares");
 
 //---------------Rutas---------------------
