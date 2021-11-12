@@ -1,5 +1,5 @@
 const Profesionales = require("../models/professional.models");
-const { findByIdAndDelete } = require("../models/professional.models");
+// const { findByIdAndDelete } = require("../models/professional.models");
 const controller = {};
 
 controller.getProfesionales = async (_req, res) => {
@@ -93,12 +93,13 @@ controller.deleteProfesional = async (req, res) => {
   const { id } = req.params;
 
   try {
-    await findByIdAndDelete(id);
+    await Profesionales.findByIdAndDelete(id);
 
     res.json({
       msg: "el profesional se elimino del sistema",
     });
   } catch (error) {
+    console.log(error)
     res.status(500).json({ msg: "Error al eliminar profesional" });
   }
 };
